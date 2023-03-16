@@ -10,6 +10,8 @@ interface Farmer {
   location: string;
   BVN: number;
   wallet: {}[];
+  TransactionHistory: {}[];
+  soldHistory: {}[];
 }
 
 interface Ifarmer extends Farmer, Document {}
@@ -49,6 +51,18 @@ const FarmerSchema: Schema<Ifarmer> = new Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "wallets",
+    },
+  ],
+  soldHistory: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "sold",
+    },
+  ],
+  TransactionHistory: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "history",
     },
   ],
   location: {
