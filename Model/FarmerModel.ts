@@ -14,7 +14,7 @@ interface Farmer {
   soldHistory: {}[];
 }
 
-interface Ifarmer extends Farmer, Document {}
+export interface Ifarmer extends Farmer, Document {}
 
 const FarmerSchema: Schema<Ifarmer> = new Schema({
   name: {
