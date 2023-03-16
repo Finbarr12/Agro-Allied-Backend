@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
 import FarmerModel, { Ifarmer } from "../Model/FarmerModel";
 import bcrypt from "bcrypt";
+import cloudinary from "../config/cloudinary";
 
-export const CreateFarmer = async (
-  req: Request<{}, {}, Ifarmer>,
-  res: Response
-) => {
+export const CreateFarmer = async (req: Request, res: Response) => {
   try {
     const {
       name,
@@ -18,14 +16,15 @@ export const CreateFarmer = async (
     } = req.body;
 
     const salt = await bcrypt.genSalt(12);
-    const HasedPass = await bcrypt.hash(salt, password);
+    const HasedPass = await bcrypt.hash(password, salt);
+    const CloudImg = await cloudinary.uploader.upload(req?.file!.path);
 
     const farmer = await FarmerModel.create({
       name,
       email,
       password: HasedPass,
       confirmPassword: HasedPass,
-      farmerImage,
+      farmerImage: CloudImg.secure_url,
       BVN,
       location,
     });

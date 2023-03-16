@@ -39,7 +39,6 @@ const FarmerSchema: Schema<Ifarmer> = new Schema({
   },
   farmerImage: {
     type: String,
-    required: [true, "Upload your image"],
   },
   products: [
     {
