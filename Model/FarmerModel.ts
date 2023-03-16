@@ -1,5 +1,9 @@
 import mongoose, { Document, Schema, model } from "mongoose";
+import { Request } from "express";
 
+interface File extends Request {
+  file: any;
+}
 interface Farmer {
   name: string;
   email: string;
@@ -12,11 +16,12 @@ interface Farmer {
   wallet: {}[];
   TransactionHistory: {}[];
   soldHistory: {}[];
+  file: File;
 }
 
 export interface Ifarmer extends Farmer, Document {}
 
-const FarmerSchema: Schema<Ifarmer> = new Schema({
+const FarmerSchema = new Schema({
   name: {
     type: String,
     required: [true, "Please input your name"],
@@ -30,7 +35,7 @@ const FarmerSchema: Schema<Ifarmer> = new Schema({
   password: {
     type: String,
     required: [true, "Please input your password"],
-    minlength: [6, "Minimum of 6 letters"],
+    minlength: [9, "Minimum of 6 letters"],
   },
   confirmPassword: {
     type: String,

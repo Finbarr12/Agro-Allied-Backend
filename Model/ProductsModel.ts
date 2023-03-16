@@ -7,25 +7,30 @@ interface Prod {
   ProductImage: string;
 }
 
-interface Iproducts extends Prod, Document {}
+export interface Iproducts extends Prod, Document {}
 
-const ProductSchema: Schema<Iproducts> = new Schema({
-  name: {
-    type: String,
-    required: [true, "Input a name"],
+const ProductSchema: Schema<Iproducts> = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Input a name"],
+    },
+    Quantity: {
+      type: Number,
+      required: [true, "Input a Quantity"],
+    },
+    price: {
+      type: Number,
+      required: [true, "Input a Price"],
+    },
+    ProductImage: {
+      type: String,
+      required: true,
+    },
   },
-  Quantity: {
-    type: Number,
-    required: [true, "Input a Quantity"],
-  },
-  price: {
-    type: Number,
-    required: [true, "Input a Price"],
-  },
-  ProductImage: {
-    type: String,
-    required: true,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-export default model<Iproducts>("Prodmodel", ProductSchema);
+export default model<Iproducts>("products", ProductSchema);

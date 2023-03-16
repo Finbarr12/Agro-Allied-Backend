@@ -1,0 +1,26 @@
+So for farmers 👇
+
+Farmers will be able to signin or create account with 
+1) their name
+2)email
+3) password
+4) confirm password
+5) upload their profile image
+6) state their location
+7) drop their BVN number(optional for now)
+
+Farmers will be able to upload products 
+
+Farmers will be able to see their products in their dashboard in a page
+
+Farmers will be able to see all products that users bought
+
+Farmers will have a wallet
+
+Farmers will have a transaction history page
+
+Farmers will have a history page for all sold products 
+
+Farmers will be able to see orders made by users with their profile, the date, time and all the products the user wants to buy
+
+Farmers can see all total sales he made
