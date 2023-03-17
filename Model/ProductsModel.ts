@@ -5,6 +5,7 @@ interface Prod {
   Quantity: number;
   price: number;
   ProductImage: string;
+  createdAt: Date;
 }
 
 export interface Iproducts extends Prod, Document {}
@@ -27,6 +28,7 @@ const ProductSchema: Schema<Iproducts> = new Schema(
       type: String,
       required: true,
     },
+    createdAt: { type: Date, default: Date.now },
   },
   {
     timestamps: true,

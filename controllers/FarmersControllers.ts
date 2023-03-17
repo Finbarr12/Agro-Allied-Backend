@@ -5,19 +5,11 @@ import cloudinary from "../config/cloudinary";
 import { MulterFile } from "./int";
 import WalletModel from "../Model/WalletModel";
 import mongoose from "mongoose";
+import nodemailer from "nodemailer";
+import crypto from "crypto";
+import AdminModel from "../Model/AdminModel";
 
-declare global {
-  namespace Express {
-    interface Request {
-      file: MulterFile;
-    }
-  }
-}
-
-export const CreateFarmer = async (
-  req: Request<{}, {}, Ifarmer>,
-  res: Response
-) => {
+export const CreateFarmer = async (req: Request, res: Response) => {
   try {
     const {
       name,
@@ -28,7 +20,7 @@ export const CreateFarmer = async (
       BVN,
       location,
     } = req.body;
-    const file = req.file!;
+    // const file = req.file!;
     const salt = await bcrypt.genSalt(12);
     const HasedPass = await bcrypt.hash(password, salt);
     const CloudImg = await cloudinary.uploader.upload(req!.file!.path);
@@ -41,6 +33,7 @@ export const CreateFarmer = async (
       farmerImage: CloudImg.secure_url,
       BVN,
       location,
+      isFarmer: true,
     });
 
     const CreateWallet = await WalletModel.create({
@@ -53,14 +46,16 @@ export const CreateFarmer = async (
     farmer?.wallet.push(new mongoose.Types.ObjectId(CreateWallet?._id));
     farmer?.save();
 
+    await AdminModel.updateOne({ $push: { farmers: farmer._id } });
+
     res.status(200).json({
       message: "Successful",
       data: farmer,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({
       message: "An error occured",
-      data: error,
+      data: error.message,
     });
   }
 };
@@ -93,14 +88,17 @@ export const LoginFarmer = async (req: Request, res: Response) => {
 
 export const AllFarmers = async (req: Request, res: Response) => {
   try {
-    const Farmers = await FarmerModel.find();
+    const Farmers = await FarmerModel.find()
+      .populate("products")
+      .populate("wallet")
+      .sort({ createdAt: -1 });
 
     return res.status(200).json({
       message: "Gotten all",
       data: Farmers,
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       message: "An error occured",
       data: error,
     });

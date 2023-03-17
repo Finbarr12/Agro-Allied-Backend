@@ -10,13 +10,14 @@ interface Farmer {
   password: string;
   confirmPassword: string;
   farmerImage: string;
+  isFarmer: boolean;
   products: {}[];
   location: string;
   BVN: number;
   wallet: {}[];
   TransactionHistory: {}[];
   soldHistory: {}[];
-  file: File;
+  // file: File;
 }
 
 export interface Ifarmer extends Farmer, Document {}
@@ -54,7 +55,7 @@ const FarmerSchema = new Schema({
   wallet: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "wallets",
+      ref: "wallet",
     },
   ],
   soldHistory: [
@@ -72,6 +73,10 @@ const FarmerSchema = new Schema({
   location: {
     type: String,
     required: [true, "Input your location"],
+  },
+  isFarmer: {
+    type: Boolean,
+    default: false,
   },
   BVN: {
     type: Number,

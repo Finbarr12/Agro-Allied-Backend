@@ -1,0 +1,25 @@
+Admin will be able to see total numbers of users in the platform
+
+Admin will be able to see total number of farmers in the platform
+
+Admin will be able to see profile of each farmer and their uploaded products
+
+Admin will have a wallet
+
+Admin will be able to see total number of products we have in our platform
+
+Admin will be able to see orders made by users with their name, amount and the farmer they are buying from. That is each farmer will have a unique I'd for their products 
+
+
+Admin will have a transaction history page
+
+Admin will be able to login or create account using
+1) name
+2) email
+3) password
+
+Admin can delete a farmer from the platform
+
+Admin will be able to capture the signin details of farmers and users
+
+Admin will be able to minus a percentage befor transferring to the farmer
